@@ -1,316 +1,232 @@
-Team-Project-Group-13
-# Video Game Analytics Dataset v1.0
+# Video Game Sales Data Analysis Project
 
-## Overview
+**Group 13**: Kaulan Serzhanuly, Shruthi Raghavan, Haitham Assaf (018226910)  
+**Course**: CS-133  
+**Project**: Data Exploration and Visualization
 
-This dataset contains synthetic but realistic video game sales and streaming analytics data designed for educational and analytical purposes. The data includes comprehensive game information, sales metrics, critic/user scores, and Twitch streaming statistics.
+## 📊 Dataset Overview
 
-**Intended Use Cases:**
-- Categorical data analysis and visualization
-- Correlation analysis between sales and streaming metrics
-- Platform and genre trend analysis
-- Data merging and join operations
-- Feature engineering with apply/map functions
+This project analyzes two comprehensive video game sales datasets to explore relationships between game features, sales performance, and critical reception.
 
-## Dataset Files
+### Dataset 1: Video Games Sales (Primary Dataset)
+- **File**: `Video_Games_Sales_as_at_22_Dec_2016.csv`
+- **Size**: 16,720 records
+- **Source**: Historical video game sales data up to December 2016
+- **Focus**: Global video game market analysis
 
-### 1. vg_sales_v1.csv (2,500 rows)
-Main dataset containing video game sales and metadata.
+### Dataset 2: Xbox One Game Sales
+- **File**: `XboxOne_GameSales.csv`
+- **Size**: 614 records
+- **Source**: Xbox One platform-specific sales data
+- **Focus**: Microsoft Xbox One console performance
 
-### 2. twitch_stats_v1.csv (2,500 rows)
-Complementary dataset with Twitch streaming metrics for the same games.
+## 🎮 Dataset Features
 
-### 3. README_v1.md
-This documentation file.
+### Video Games Sales Dataset Columns:
+- **Name**: Game title
+- **Platform**: Gaming platform (PS4, Xbox One, PC, etc.)
+- **Year_of_Release**: Release year
+- **Genre**: Game category (Action, Sports, RPG, etc.)
+- **Publisher**: Publishing company
+- **NA_Sales**: North American sales (millions)
+- **EU_Sales**: European sales (millions)
+- **JP_Sales**: Japanese sales (millions)
+- **Other_Sales**: Other regions sales (millions)
+- **Global_Sales**: Total worldwide sales (millions)
+- **Critic_Score**: Professional critic rating (0-100)
+- **Critic_Count**: Number of critic reviews
+- **User_Score**: User rating (0-10)
+- **User_Count**: Number of user reviews
+- **Developer**: Game development studio
+- **Rating**: ESRB content rating
 
-## Schema Documentation
+### Xbox One Dataset Columns:
+- **Pos**: Ranking position
+- **Game**: Game title
+- **Year**: Release year
+- **Genre**: Game category
+- **Publisher**: Publishing company
+- **North America**: NA sales (millions)
+- **Europe**: EU sales (millions)
+- **Japan**: JP sales (millions)
+- **Rest of World**: Other regions sales (millions)
+- **Global**: Total worldwide sales (millions)
 
-### vg_sales_v1.csv Schema
+## 🔍 Analysis Questions
 
-| Column | Type | Description | Allowed Values |
-|--------|------|-------------|----------------|
-| Game | string | Unique game title | Synthetic game names |
-| Platform | category | Gaming platform | NES, SNES, N64, PS1, PS2, PS3, PS4, PS5, X360, XOne, XSX, GC, Wii, WiiU, Switch, PC |
-| Genre | category | Game genre | Action, Adventure, Platform, Role-Playing, Shooter, Sports, Racing, Strategy, Simulation, Fighting, Party, Puzzle, Indie |
-| Publisher | category | Game publisher | 50 synthetic company names |
-| Year | integer | Release year | 1985-2025 (skewed to 2005-2020) |
-| Global_Sales_M | float | Global sales in millions | 0.01-50.0 (right-skewed) |
-| Critic_Score | integer | Metacritic critic score | 30-98 (normal distribution, μ=73, σ=11) |
-| User_Score | float | User rating | 3.5-9.8 (correlated with critic score) |
-| ESRB_Rating | category | Age rating | E (28%), E10+ (17%), T (27%), M (25%), RP (3%) |
-| Dev_Team_Size | integer | Development team size | 3-400 (correlated with platform/genre) |
-| Budget_MUSD | float | Development budget in millions USD | 0.1-200 (correlated with team size) |
-| Region | category | Primary market region | NA, EU, JP, Other |
-| Franchise | boolean | Part of a franchise | True (35%), False (65%) |
-| Metascore_Bucket | category | Derived from Critic_Score | Low (<65), Mid (65-79), High (80-89), Top (90+) |
+This project addresses six key data exploration questions:
 
-### twitch_stats_v1.csv Schema
+### Q1: Missing Data Analysis
+- **Objective**: Identify data quality issues
+- **Method**: Count missing values per column
+- **Visualization**: Bar chart of missing data
 
-| Column | Type | Description | Range |
-|--------|------|-------------|-------|
-| Game | string | Game title (join key) | Matches vg_sales_v1.csv |
-| Avg_Concurrent_Viewers | integer | Average concurrent viewers | 0-350,000 (heavy tail) |
-| Peak_Concurrent_Viewers | integer | Peak concurrent viewers | 0-2,000,000 (≥ Avg * 1.2) |
-| Monthly_Hours_Watched_M | float | Monthly hours watched in millions | 0-120 (correlated with viewers) |
-| Streamer_Count | integer | Number of active streamers | 10-120,000 (weak correlation with viewers) |
-| Streaming_Popularity_Bucket | category | Streaming popularity tier | Low, Mid, High, Top (by quantiles) |
+### Q2: Data Types Summary
+- **Objective**: Understand dataset structure
+- **Method**: Analyze column data types
+- **Output**: Data type distribution visualization
 
-## Data Generation Methodology
+### Q3: Pairwise Relationships
+- **Objective**: Explore feature correlations
+- **Method**: Pair plot with polynomial regression
+- **Visualization**: Scatter matrix with regression lines
 
-### Distributions and Correlations
+### Q4: Linear Regression Analysis
+- **Objective**: Quantify relationships between features
+- **Method**: Linear regression with confidence intervals
+- **Focus**: Sales vs. Critical reception correlation
 
-**Sales Distribution:**
-- Right-skewed exponential distribution
-- Median ~0.3M, 95th percentile ~8M
-- Outliers up to 25-40M copies
-- Positive correlation with critic scores (~0.25-0.35)
+### Q5: Multi-dimensional Visualization
+- **Objective**: Show complex relationships
+- **Method**: Relplot with hue and size encoding
+- **Features**: Sales, scores, platforms, and temporal data
 
-**Genre Effects:**
-- High-selling genres: Shooter, Sports, Action, Role-Playing
-- Lower-selling genres: Strategy, Indie, Puzzle
-- Nintendo platforms favor family-friendly genres
+### Q6: Small Multiples Analysis
+- **Objective**: Compare across categories
+- **Method**: Faceted plots (3 per row)
+- **Focus**: Platform and genre comparisons
 
-**Platform Trends:**
-- Recent years (2017+) favor PS4/PS5/Switch/PC
-- Platform-year compatibility enforced
-- Budget correlates with platform capabilities
+## 🛠️ Technical Requirements
 
-**Streaming Correlations:**
-- Moderate correlation between sales and streaming (~0.25-0.4)
-- Shooter/Action games have higher streaming metrics
-- Puzzle/Strategy games have lower streaming despite some sales
-- Includes counterexamples (cult classics vs. big sellers)
-
-### Noise and Randomness
-
-- All correlations include realistic noise
-- 5% chance of streaming outliers
-- Budget includes platform/genre multipliers with noise
-- User scores have moderate correlation with critic scores
-
-## Data Merging Instructions
-
-### Using Pandas
-
-```python
-import pandas as pd
-
-# Load datasets
-vg_sales = pd.read_csv('vg_sales_v1.csv')
-twitch_stats = pd.read_csv('twitch_stats_v1.csv')
-
-# Merge on Game column
-merged_df = pd.merge(vg_sales, twitch_stats, on='Game', how='inner')
-
-# Verify merge
-print(f"Original games: {len(vg_sales)}")
-print(f"Twitch stats: {len(twitch_stats)}")
-print(f"Merged dataset: {len(merged_df)}")
-```
-
-### Expected Results
-- Perfect 1:1 join (2,500 rows each)
-- No missing values after merge
-- All games have both sales and streaming data
-
-## Ethical Considerations
-
-**Synthetic Data Disclaimer:**
-- All data is artificially generated
-- No real intellectual property or trademarks used
-- Game titles are algorithmically generated
-- Publishers are fictional companies
-- No data scraping or real-world data collection involved
-
-## Example Analysis Code
-
-### Data Loading and Basic Checks
-
+### Python Libraries:
 ```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# Load data
-vg_sales = pd.read_csv('vg_sales_v1.csv')
-twitch_stats = pd.read_csv('twitch_stats_v1.csv')
-
-# Basic data quality checks
-print("Missing values:")
-print(vg_sales.isna().sum())
-print(twitch_stats.isna().sum())
-
-print("\nUnique counts:")
-print(f"Games: {vg_sales['Game'].nunique()}")
-print(f"Platforms: {vg_sales['Platform'].nunique()}")
-print(f"Genres: {vg_sales['Genre'].nunique()}")
+from scipy import stats
 ```
 
-### Categorical Visualizations
+### Key Features:
+- **Encoding Handling**: Robust UTF-8/Latin-1/CP1252 support
+- **Missing Data**: Comprehensive null value analysis
+- **Visualization**: Professional plots with proper styling
+- **Adaptive Analysis**: Automatically selects appropriate features
 
-```python
-# Platform distribution
-plt.figure(figsize=(12, 6))
-sns.countplot(data=vg_sales, y='Platform', order=vg_sales['Platform'].value_counts().index)
-plt.title('Game Distribution by Platform')
-plt.show()
+## 📈 Expected Insights
 
-# Genre vs Sales
-plt.figure(figsize=(12, 8))
-sns.boxplot(data=vg_sales, x='Genre', y='Global_Sales_M')
-plt.xticks(rotation=45)
-plt.title('Sales Distribution by Genre')
-plt.show()
+### Sales Patterns:
+- **Regional Preferences**: NA vs EU vs JP market differences
+- **Platform Performance**: Console vs PC vs Mobile trends
+- **Genre Popularity**: Most successful game categories
 
-# ESRB Rating distribution
-plt.figure(figsize=(8, 6))
-vg_sales['ESRB_Rating'].value_counts().plot(kind='pie', autopct='%1.1f%%')
-plt.title('ESRB Rating Distribution')
-plt.show()
+### Critical Reception:
+- **Score Correlations**: Critic vs User rating relationships
+- **Sales Impact**: How scores affect commercial success
+- **Temporal Trends**: Evolution of game quality over time
+
+### Market Analysis:
+- **Publisher Performance**: Top-performing game studios
+- **Release Timing**: Optimal release periods
+- **Platform Strategy**: Cross-platform vs exclusive titles
+
+## 🚀 Usage Instructions
+
+### 1. Environment Setup:
+```bash
+# Install required packages
+pip install pandas numpy matplotlib seaborn scipy jupyter
 ```
 
-### Interactive Plotly Example
+### 2. Run Analysis:
+```bash
+# Start Jupyter Notebook
+jupyter notebook
 
-```python
-import plotly.express as px
-import plotly.graph_objects as go
-
-# Merge datasets
-merged_df = pd.merge(vg_sales, twitch_stats, on='Game')
-
-# Interactive scatter plot
-fig = px.scatter(merged_df, 
-                 x='Global_Sales_M', 
-                 y='Avg_Concurrent_Viewers',
-                 color='Genre',
-                 size='Critic_Score',
-                 hover_data=['Game', 'Platform', 'Publisher'],
-                 title='Sales vs Streaming Popularity by Genre')
-
-fig.show()
-
-# Correlation heatmap
-correlation_data = merged_df[['Global_Sales_M', 'Critic_Score', 'User_Score', 
-                             'Avg_Concurrent_Viewers', 'Monthly_Hours_Watched_M']].corr()
-
-fig = px.imshow(correlation_data, 
-                text_auto=True, 
-                aspect="auto",
-                title='Correlation Matrix')
-fig.show()
+# Open video_game_data_exploration.ipynb
+# Run all cells sequentially
 ```
 
-### Feature Engineering with Apply
-
-```python
-# Create generation buckets from Year
-def get_generation(year):
-    if year < 1990:
-        return '8-bit Era'
-    elif year < 2000:
-        return '16-bit Era'
-    elif year < 2010:
-        return 'Early 3D Era'
-    elif year < 2020:
-        return 'HD Era'
-    else:
-        return 'Modern Era'
-
-vg_sales['Generation'] = vg_sales['Year'].apply(get_generation)
-
-# Analyze by generation
-generation_analysis = vg_sales.groupby('Generation').agg({
-    'Global_Sales_M': ['mean', 'median', 'count'],
-    'Critic_Score': 'mean',
-    'Budget_MUSD': 'mean'
-}).round(2)
-
-print("Analysis by Gaming Generation:")
-print(generation_analysis)
+### 3. File Structure:
+```
+CS-133-project-1/
+├── README.md
+├── video_game_data_exploration.ipynb
+├── Video_Games_Sales_as_at_22_Dec_2016.csv
+└── XboxOne_GameSales.csv
 ```
 
-### Advanced Analytics
+## 📊 Output Visualizations
 
-```python
-# Platform performance analysis
-platform_performance = vg_sales.groupby('Platform').agg({
-    'Global_Sales_M': ['mean', 'median', 'sum'],
-    'Critic_Score': 'mean',
-    'Budget_MUSD': 'mean',
-    'Game': 'count'
-}).round(2)
+### 1. Data Quality Assessment
+- Missing data bar chart
+- Data type distribution
+- Dataset summary statistics
 
-platform_performance.columns = ['Avg_Sales', 'Median_Sales', 'Total_Sales', 
-                               'Avg_Critic_Score', 'Avg_Budget', 'Game_Count']
-platform_performance = platform_performance.sort_values('Total_Sales', ascending=False)
+### 2. Correlation Analysis
+- Pairwise scatter plots with regression lines
+- Correlation heatmaps
+- Feature relationship matrices
 
-print("Platform Performance Analysis:")
-print(platform_performance.head(10))
+### 3. Sales Performance
+- Regional sales comparisons
+- Platform performance analysis
+- Genre popularity rankings
 
-# Genre profitability analysis
-genre_profitability = vg_sales.groupby('Genre').agg({
-    'Global_Sales_M': 'mean',
-    'Budget_MUSD': 'mean',
-    'Critic_Score': 'mean'
-}).round(2)
+### 4. Critical Reception
+- Score distribution analysis
+- Critic vs User rating comparisons
+- Quality trends over time
 
-genre_profitability['ROI'] = (genre_profitability['Global_Sales_M'] * 50 - 
-                              genre_profitability['Budget_MUSD']) / genre_profitability['Budget_MUSD']
-genre_profitability = genre_profitability.sort_values('ROI', ascending=False)
+### 5. Market Segmentation
+- Platform-specific analysis
+- Publisher performance rankings
+- Genre market share
 
-print("\nGenre Profitability Analysis:")
-print(genre_profitability)
-```
+## 🎯 Key Findings Preview
 
-## Data Quality Assurance
+### Sales Insights:
+- **Top Performing Genres**: Action, Sports, and Shooter games dominate
+- **Regional Preferences**: NA favors shooters, JP prefers RPGs
+- **Platform Trends**: Console vs PC market dynamics
 
-### Validation Checks
+### Quality Metrics:
+- **Score Correlations**: Strong relationship between critic and user scores
+- **Sales Impact**: Higher scores generally correlate with better sales
+- **Temporal Quality**: Game quality has improved over time
 
-```python
-# Shape validation
-assert len(vg_sales) == len(twitch_stats) == 2500, "Row count mismatch"
+### Market Dynamics:
+- **Publisher Dominance**: Major publishers control market share
+- **Platform Strategy**: Cross-platform releases perform better
+- **Release Timing**: Holiday seasons show peak performance
 
-# Key uniqueness
-assert vg_sales['Game'].nunique() == len(vg_sales), "Duplicate games in sales data"
-assert twitch_stats['Game'].nunique() == len(twitch_stats), "Duplicate games in twitch data"
+## 📚 Data Sources
 
-# No null values
-assert vg_sales.isna().sum().sum() == 0, "Null values found in sales data"
-assert twitch_stats.isna().sum().sum() == 0, "Null values found in twitch data"
+- **Video Games Sales**: Historical gaming industry data
+- **Xbox One Sales**: Microsoft platform-specific metrics
+- **Critical Scores**: Professional and user review aggregations
+- **Sales Data**: Regional and global market performance
 
-# Categorical validation
-valid_platforms = {'NES', 'SNES', 'N64', 'PS1', 'PS2', 'PS3', 'PS4', 'PS5', 
-                   'X360', 'XOne', 'XSX', 'GC', 'Wii', 'WiiU', 'Switch', 'PC'}
-assert set(vg_sales['Platform'].unique()).issubset(valid_platforms), "Invalid platforms"
+## 🔧 Troubleshooting
 
-valid_genres = {'Action', 'Adventure', 'Platform', 'Role-Playing', 'Shooter', 
-               'Sports', 'Racing', 'Strategy', 'Simulation', 'Fighting', 
-               'Party', 'Puzzle', 'Indie'}
-assert set(vg_sales['Genre'].unique()).issubset(valid_genres), "Invalid genres"
+### Common Issues:
+1. **Encoding Errors**: Fixed with multiple encoding fallbacks
+2. **Missing Data**: Handled with appropriate null value analysis
+3. **Memory Issues**: Optimized for large dataset processing
+4. **Visualization**: Professional styling and clear labeling
 
-# Logical constraints
-assert all(twitch_stats['Peak_Concurrent_Viewers'] >= 
-          twitch_stats['Avg_Concurrent_Viewers'] * 1.2), "Peak < Avg * 1.2"
+### Performance Notes:
+- **Large Dataset**: 16K+ records require efficient processing
+- **Memory Usage**: Optimized pandas operations
+- **Visualization**: High-quality plots with proper sizing
 
-# Correlation checks
-merged_df = pd.merge(vg_sales, twitch_stats, on='Game')
-sales_critic_corr = merged_df['Global_Sales_M'].corr(merged_df['Critic_Score'])
-sales_streaming_corr = merged_df['Global_Sales_M'].corr(merged_df['Monthly_Hours_Watched_M'])
+## 📝 Project Deliverables
 
-assert 0.2 <= sales_critic_corr <= 0.5, f"Sales-Critic correlation out of range: {sales_critic_corr}"
-assert 0.2 <= sales_streaming_corr <= 0.5, f"Sales-Streaming correlation out of range: {sales_streaming_corr}"
+1. **Jupyter Notebook**: Complete analysis with all 6 questions
+2. **Visualizations**: Professional plots with proper titles
+3. **Data Quality Report**: Missing data and type analysis
+4. **Correlation Analysis**: Feature relationship insights
+5. **Market Analysis**: Sales and performance trends
 
-print("All validation checks passed!")
-print(f"Sales-Critic correlation: {sales_critic_corr:.3f}")
-print(f"Sales-Streaming correlation: {sales_streaming_corr:.3f}")
-```
+## 🎓 Learning Objectives
 
-## File Format Specifications
+This project demonstrates:
+- **Data Exploration**: Comprehensive dataset analysis
+- **Visualization**: Professional plotting techniques
+- **Statistical Analysis**: Correlation and regression methods
+- **Data Quality**: Missing data and encoding handling
+- **Market Research**: Gaming industry insights
 
-- **Encoding:** UTF-8
-- **Delimiter:** Comma (,)
-- **Header:** First row contains column names
-- **Quotes:** No quoted numbers, strings may be quoted if they contain commas
-- **Line Endings:** Unix-style (LF) or Windows-style (CRLF)
-- **File Size:** ~200KB each (2,500 rows)
+---
+
+**Note**: This analysis provides insights into the video game industry's sales patterns, critical reception, and market dynamics. The findings can inform business decisions, market strategies, and academic research in the gaming sector.
