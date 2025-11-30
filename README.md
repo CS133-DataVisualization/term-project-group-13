@@ -1,8 +1,6 @@
 # CS133 – Term Project (Group 13)
 ## Video Game Sales Data Analysis and Classification
 
-**Course:** CS133 – Data Visualization  
-
 **Group 13 Members:**
 - Haitham Assaf  
 - Shruthi Raghavachary  
