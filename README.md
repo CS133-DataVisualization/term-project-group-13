@@ -114,4 +114,4 @@ A confusion matrix heatmap for the best model (Logistic Regression).
 
 A full classification report (precision, recall, F1-score, support) for the best model.
 
-These outputs are discussed and interpreted in the written report in report/CS133_Term_Project_Report.pdf.
+These outputs are discussed and interpreted in the written report in the report pdf. 
