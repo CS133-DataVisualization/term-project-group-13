@@ -23,7 +23,7 @@ This project uses the **Video_Games_Sales_as_at_22_Dec_2016.csv** dataset to:
 5. Visualize the performance of the best model using a confusion matrix and classification report.
 
 All final project code lives in **`Final (1).ipynb`**.  
-The written report is in **`report/cs133report.pdf`** .
+The written report is in **`cs133report.pdf`** .
 
 ---
 
