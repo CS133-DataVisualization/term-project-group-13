@@ -2,7 +2,6 @@
 ## Video Game Sales Data Analysis and Classification
 
 **Course:** CS133 – Data Visualization  
-**Instructor:** [Instructor Name]  
 
 **Group 13 Members:**
 - Haitham Assaf  
