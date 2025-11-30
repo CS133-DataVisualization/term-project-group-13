@@ -50,7 +50,7 @@ The written report is in **`cs133report.pdf`** .
 - `CS133_F25_P2_categorical_interactive_transform_(1).ipynb`  
   Earlier practice notebook (categorical plots + basic interactive plots).
 
-- `report/CS133_Term_Project_Report.pdf`  
+- `cs133report.pdf`  
   Written report summarizing the project, visualizations, ML pipeline, and results.
 
 ---
