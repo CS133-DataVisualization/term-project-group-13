@@ -67,7 +67,7 @@ The written report is in **`cs133report.pdf`** .
 
 Data loading and cleaning
 
-Exploratory visualizations (Figures 1–6)
+Exploratory visualizations
 
 Interactive Plotly visualization
 
